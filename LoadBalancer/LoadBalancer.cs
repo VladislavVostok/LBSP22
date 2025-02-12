@@ -1,9 +1,12 @@
-﻿using System.Net;
+﻿using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace LoadBalancer;
 
-class Program
+class LoadBalancer
 {
     private static readonly List<IPEndPoint> _server = new(){
         new IPEndPoint(IPAddress.Parse("127.0.0.1"), 5001),
@@ -13,8 +16,9 @@ class Program
 
     private static readonly object _lock = new object();
     private static int _currentServerIndex = 0;
+	private static readonly string _secretKey = "SuperSecretKijdfgjaeoiyj34o9uyjhuwierfjhoiqejy0ju5490hjueoifrhoijaasdeyForJWTToken123!";
 
-    static async Task Main(string[] args)
+	static async Task Main(string[] args)
     {
         TcpListener listener = new TcpListener(IPAddress.Any, 5000);
         listener.Start();
@@ -31,13 +35,34 @@ class Program
 
 
     private static async Task HandleClientAsync(TcpClient client){
-        
-        IPEndPoint selectedServer = GetNextServer();
+
+
+        using (client)
+        {
+            NetworkStream stream = client.GetStream();
+            byte[] buffer = new byte[1024];
+            int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+            string request = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+
+			if (!ValidateJwtToken(request))
+			{
+				Console.WriteLine("Неверный JWT токен. Отклоняем соединение.");
+				client.Close();
+				return;
+			}
+
+		}
+
+
+
+			IPEndPoint selectedServer = GetNextServer();
        
-       if(!await IsServerAvailableAsync(selectedServer)){
+        if(!await IsServerAvailableAsync(selectedServer)){
             Console.WriteLine($"Сервер {selectedServer} недоступен. Закрываем соединение с клиентом...");
             client.Dispose();
-       }
+        }
+
+       // Валидация токена
 
         Console.WriteLine($"{client.Client.RemoteEndPoint}");
 
@@ -98,8 +123,29 @@ class Program
             return false;            
         }
     }
+	private static bool ValidateJwtToken(string token)
+	{
+		try
+		{
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var key = Encoding.UTF8.GetBytes(_secretKey);
 
-    private static IPEndPoint GetNextServer(){
+			tokenHandler.ValidateToken(token, new TokenValidationParameters
+			{
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(key),
+				ValidateIssuer = false,
+				ValidateAudience = false
+			}, out SecurityToken validatedToken);
+
+			return validatedToken != null;
+		}
+		catch
+		{
+			return false;
+		}
+	}
+	private static IPEndPoint GetNextServer(){
         lock(_lock){
             IPEndPoint server = _server[_currentServerIndex];
             _currentServerIndex = (_currentServerIndex + 1) % _server.Count;

@@ -3,19 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancer", "LoadBalancer\LoadBalancer.csproj", "{A7C77133-5711-427F-9196-BF4D6864AA9A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LoadBalancer", "LoadBalancer\LoadBalancer.csproj", "{A7C77133-5711-427F-9196-BF4D6864AA9A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{FDFA518F-67E1-46DD-B5ED-E0BF3779F83D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{FDFA518F-67E1-46DD-B5ED-E0BF3779F83D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Client\Client.csproj", "{A1FA0011-1E09-4AE9-9CA5-E70D3916BE54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{A1FA0011-1E09-4AE9-9CA5-E70D3916BE54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthServer", "AuthServer\AuthServer.csproj", "{3205442A-DA46-447B-A4E8-9A659661D866}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{A7C77133-5711-427F-9196-BF4D6864AA9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -30,5 +29,15 @@ Global
 		{A1FA0011-1E09-4AE9-9CA5-E70D3916BE54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1FA0011-1E09-4AE9-9CA5-E70D3916BE54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1FA0011-1E09-4AE9-9CA5-E70D3916BE54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3205442A-DA46-447B-A4E8-9A659661D866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3205442A-DA46-447B-A4E8-9A659661D866}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3205442A-DA46-447B-A4E8-9A659661D866}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3205442A-DA46-447B-A4E8-9A659661D866}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6B2EE112-527D-4E5E-892C-440BD512D396}
 	EndGlobalSection
 EndGlobal
