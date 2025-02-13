@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System;
+using System.Net.Sockets;
 using System.Text;
 using System.Text.Json;
 
@@ -13,6 +14,10 @@ class Client
 	private const int AuthServerPort = 4000;
 	private const string BalancerIp = "127.0.0.1";
 	private const int BalancerPort = 5000;
+	private const string ChatServerIp = "127.0.0.1";
+	private const int ChatServerPort = 6000;
+
+
 	static async Task Main()
 	{
 
@@ -31,8 +36,10 @@ class Client
 			return;
 		}
 
-		await ConnectToBalancer(token);
-		
+		var pokerTask = ConnectToBalancer(token);
+		var chatTask = ConnectToChatServer();
+
+		await Task.WhenAll(pokerTask, chatTask);
 	}
 
 	private static async Task<string> GetAuthToken(string username, string password)
@@ -59,6 +66,40 @@ class Client
 		{
 			Console.WriteLine($"Ошибка подключения к серверу авторизации: {ex.Message}");
 			return null;
+		}
+	}
+
+	private static async Task ConnectToChatServer()
+	{
+		try
+		{
+			using (TcpClient client = new())
+			{
+				await client.ConnectAsync(ChatServerIp, ChatServerPort);
+				NetworkStream stream = client.GetStream();
+				_ = Task.Run(async () =>
+				{
+					byte[] buffer = new byte[1024];
+					while (true)
+					{
+						int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+						string message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+						Console.WriteLine($"Чат: {message}");
+					}
+				});
+
+				while (true)
+				{
+					string message = Console.ReadLine();
+					byte[] data = Encoding.UTF8.GetBytes(message);
+					await stream.WriteAsync(data, 0, data.Length);
+				}
+
+			}
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"{nameof(ConnectToChatServer)}: {ex.Message}");
 		}
 	}
 
