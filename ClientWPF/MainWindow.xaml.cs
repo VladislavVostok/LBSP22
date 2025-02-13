@@ -56,11 +56,19 @@ namespace ClientWPF
 				return;
 			}
 
+
+
 			// Подключаемся к балансировщику
-			await ConnectToBalancer(token);
+			var conTBal = ConnectToBalancer(token);
 
 			// Подключаемся к чат-серверу
-			await ConnectToChatServer();
+			var conTChSer = ConnectToChatServer();
+
+
+
+			await Task.WhenAll(conTBal, conTChSer);
+
+
 		}
 
 		private async Task<string> GetAuthToken(string username, string password)
