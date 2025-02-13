@@ -5,8 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Poker Client" Height="450" Width="600">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <TextBox x:Name="ChatInputBox" Grid.Row="0" 
+                 Margin="10" />
+        <Button Content="Отправить" Grid.Row="0" HorizontalAlignment="Right" Margin="10" Click="SendChatMessage_Click" />
+
+        <!-- Лог чата -->
+        <ListBox x:Name="ChatLogBox" Grid.Row="1" Margin="10" />
+
+        <!-- Кнопка для отправки команды на сервер -->
+        <Button Content="Получить карты" Grid.Row="2" Margin="10" Click="DealCards_Click" />
     </Grid>
 </Window>

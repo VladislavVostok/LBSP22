@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "AuthServer\Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatServer", "ChatServer\ChatServer.csproj", "{0A92F00E-FE16-4FC6-A3C8-3E1B1D133AD2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientWPF", "ClientWPF\ClientWPF.csproj", "{FA92E90F-0BCA-4AEA-8780-E575635D625F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0A92F00E-FE16-4FC6-A3C8-3E1B1D133AD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A92F00E-FE16-4FC6-A3C8-3E1B1D133AD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A92F00E-FE16-4FC6-A3C8-3E1B1D133AD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
