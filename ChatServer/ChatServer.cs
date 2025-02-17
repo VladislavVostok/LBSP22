@@ -11,7 +11,7 @@ namespace ChatServer
 		static async Task Main(string[] args)
 		{
 			int port = 6000; // Порт для чат-сервера
-			TcpListener listener = new TcpListener(IPAddress.Any, port);
+			TcpListener listener = new TcpListener(IPAddress.Parse("217.25.88.28"), port);
 			listener.Start();
 
 			Console.WriteLine($"Chat Server запущен на порту {port}");

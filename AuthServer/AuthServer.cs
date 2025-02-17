@@ -23,7 +23,7 @@ namespace AuthServer
 
 		static async Task Main(string[] args)
 		{
-			TcpListener listener = new TcpListener(IPAddress.Any, 4000);
+			TcpListener listener = new TcpListener(IPAddress.Parse("217.25.88.28"), 4000);
 			listener.Start();
 			Console.WriteLine("Auth Server запущен на порту 4000...");
 

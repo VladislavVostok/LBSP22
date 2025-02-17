@@ -10,11 +10,11 @@ namespace Client;
 
 class Client
 {
-	private const string AuthServerIp = "127.0.0.1";
+	private const string AuthServerIp = "217.25.88.28";
 	private const int AuthServerPort = 4000;
-	private const string BalancerIp = "127.0.0.1";
+	private const string BalancerIp = "217.25.88.28";
 	private const int BalancerPort = 5000;
-	private const string ChatServerIp = "127.0.0.1";
+	private const string ChatServerIp = "217.25.88.28";
 	private const int ChatServerPort = 6000;
 
 
