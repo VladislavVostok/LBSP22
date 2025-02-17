@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "AuthServer\AuthServer.csproj", "{3205442A-DA46-447B-A4E8-9A659661D866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatServer", "ChatServer\ChatServer.csproj", "{0A92F00E-FE16-4FC6-A3C8-3E1B1D133AD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatServer", "ChatServer\ChatServer.csproj", "{0A92F00E-FE16-4FC6-A3C8-3E1B1D133AD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientWPF", "ClientWPF\ClientWPF.csproj", "{FA92E90F-0BCA-4AEA-8780-E575635D625F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientWPF", "ClientWPF\ClientWPF.csproj", "{FA92E90F-0BCA-4AEA-8780-E575635D625F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfChatMVVM", "WpfChatMVVM\WpfChatMVVM.csproj", "{5AC0A3B1-4CE6-4B44-833F-C2CF2EBE9699}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA92E90F-0BCA-4AEA-8780-E575635D625F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AC0A3B1-4CE6-4B44-833F-C2CF2EBE9699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AC0A3B1-4CE6-4B44-833F-C2CF2EBE9699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AC0A3B1-4CE6-4B44-833F-C2CF2EBE9699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AC0A3B1-4CE6-4B44-833F-C2CF2EBE9699}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
