@@ -19,9 +19,9 @@ namespace ClientWPF
 	public partial class MainWindow : Window
 	{
 
-		private const string BalancerIp = "127.0.0.1";
+		private const string BalancerIp = "62.113.44.183";
 		private const int BalancerPort = 5000;
-		private const string ChatServerIp = "127.0.0.1";
+		private const string ChatServerIp = "62.113.44.183";
 		private const int ChatServerPort = 6000;
 
 		private TcpClient _chatClient;
