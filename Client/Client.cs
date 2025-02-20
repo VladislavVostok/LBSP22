@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Net.Security;
 using System.Net.Sockets;
+using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 
@@ -10,11 +12,14 @@ namespace Client;
 
 class Client
 {
-	private const string AuthServerIp = "217.25.88.28";
+	// Серверы и порты
+	private const string AuthServerIp = "127.0.0.1";
 	private const int AuthServerPort = 4000;
-	private const string BalancerIp = "217.25.88.28";
+
+	private const string BalancerIp = "127.0.0.1";
 	private const int BalancerPort = 5000;
-	private const string ChatServerIp = "217.25.88.28";
+
+	private const string ChatServerIp = "127.0.0.1";
 	private const int ChatServerPort = 6000;
 
 
@@ -48,17 +53,28 @@ class Client
 		{
 			using TcpClient client = new TcpClient();
 			await client.ConnectAsync(AuthServerIp, AuthServerPort);
-			NetworkStream stream = client.GetStream();
+			
+			SslStream sslStream = new SslStream(client.GetStream(), false, (sender, cert, chain, sslPolicyErrors) => true);
+			sslStream.AuthenticateAsClient("AuthServer", null, SslProtocols.Tls12, false);
+
 
 			var loginRequest = new { Username = username, Password = password };
 			string jsonRequest = JsonSerializer.Serialize(loginRequest);
 			byte[] requestData = Encoding.UTF8.GetBytes(jsonRequest);
 
-			await stream.WriteAsync(requestData, 0, requestData.Length);
+			await sslStream.WriteAsync(requestData, 0, requestData.Length);
+
 			byte[] buffer = new byte[1024];
-			int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+			int bytesRead = await sslStream.ReadAsync(buffer, 0, buffer.Length);
+
+			if (bytesRead == 0)
+			{
+				return null;
+			}
+
 			string responseJson = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 			var response = JsonSerializer.Deserialize<AuthResponse>(responseJson);
+
 			return response?.Success == true ? response.Token : null;
 
 		}
