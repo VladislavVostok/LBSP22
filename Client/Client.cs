@@ -125,15 +125,16 @@ class Client
 		{
 			using TcpClient client = new TcpClient();
 			await client.ConnectAsync(BalancerIp, BalancerPort);
-			NetworkStream stream = client.GetStream();
+			SslStream sslStream = new SslStream(client.GetStream(), false, (sender, cert, chain, sslPolicyErrors) => true);
+			sslStream.AuthenticateAsClient("BalanceServer", null, SslProtocols.Tls12, false);
 
 			// Отправляем токен балансировщику
 			byte[] tokenData = Encoding.UTF8.GetBytes(token);
-			await stream.WriteAsync(tokenData, 0, tokenData.Length);
+			await sslStream.WriteAsync(tokenData, 0, tokenData.Length);
 
 			// Читаем ответ от покерного сервера через балансировщик
 			byte[] buffer = new byte[1024];
-			int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+			int bytesRead = await sslStream.ReadAsync(buffer, 0, buffer.Length);
 			string response = Encoding.UTF8.GetString(buffer, 0, bytesRead);
 
 			Console.WriteLine($"Ответ от сервера: {response}");
@@ -144,11 +145,11 @@ class Client
 
 				string request = "DEAL_CARDS";
 				byte[] requestData = Encoding.UTF8.GetBytes(request);
-				await stream.WriteAsync(requestData, 0, requestData.Length);
+				await sslStream.WriteAsync(requestData, 0, requestData.Length);
 
 
 				buffer = new byte[1024];
-				bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+				bytesRead = await sslStream.ReadAsync(buffer, 0, buffer.Length);
 
 
 				if (bytesRead > 0)
